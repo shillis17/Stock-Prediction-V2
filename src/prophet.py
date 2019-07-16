@@ -43,7 +43,7 @@ def prophet (dataframe,name):
     plt.xlabel('Date')
     plt.ylabel('Value (US$)')
     plt.title(name + ' Prophet Prediction')
-    plt.savefig('../img/'+name+'Prophet.png')
+    plt.savefig('../img/Prophet/'+name+'Prophet.png')
 
 for i in stocks:
     prophet(i[1],i[0])
