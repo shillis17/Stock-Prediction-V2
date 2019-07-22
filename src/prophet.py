@@ -1,3 +1,4 @@
+# NOTE THIS CODE IS NO LONGER USED PLEASE ERFEER TO PROPHETCLASS.PY
 from fbprophet import Prophet
 import pandas as pd
 from suppress import suppress_stdout_stderr
@@ -7,17 +8,28 @@ from matplotlib import rcParams
 
 rcParams.update({'figure.autolayout': True})
 plt.style.use('fivethirtyeight')
+# Get data from get_data
+google, microsoft, apple, jnj, amazon = get_data()
+stocks = [['GOOGL', google], ['MSFT', microsoft], ['AAPL', apple],
+          ['JNJ', jnj], ['AMZN', amazon]]
 
-google,microsoft,apple,jnj,amazon = get_data()
-stocks = [['GOOGL',google],['MSFT',microsoft],['AAPL',apple],['JNJ',jnj],['AMZN',amazon]]
 
-def prophet (dataframe,name):
-    data = pd.DataFrame(index = dataframe.index.tz_localize(tz=None))
-    data['y']=dataframe.close.values
-    data['ds']=dataframe.index.tz_localize(tz=None)
+def prophet(dataframe, name):
+    """
+    Takes data and casts prediction praphed over actuals from data
 
-    train = data [:2265]
-    test = data [-252:]
+    Attributes:
+        dataframe(Padnas DataFame): Dataframe of stock data from get_data()
+        name     (String): name of the stock used for save file and graph title
+    Returns:
+        None
+    """
+    data = pd.DataFrame(index=dataframe.index.tz_localize(tz=None))
+    data['y'] = dataframe.close.values
+    data['ds'] = dataframe.index.tz_localize(tz=None)
+
+    train = data[:2265]
+    test = data[-252:]
 
     with suppress_stdout_stderr():
         model = Prophet(
@@ -31,19 +43,20 @@ def prophet (dataframe,name):
         future = pd.DataFrame()
         future['ds'] = google.index.tz_localize(tz=None).values
         forecast = model.predict(future)
-        forecast.set_index('ds',inplace=True)
-    
+        forecast.set_index('ds', inplace=True)
+
     fig, ax = plt.subplots()
     plt.autoscale()
     plt.tight_layout(pad=3)
     plt.plot(train.y)
     plt.plot(test.y)
     plt.plot(forecast.yhat[-252:])
-    plt.legend(['History','Actual','Predicted'])
+    plt.legend(['History', 'Actual', 'Predicted'])
     plt.xlabel('Date')
     plt.ylabel('Value (US$)')
     plt.title(name + ' Prophet Prediction')
     plt.savefig('../img/Prophet/'+name+'Prophet.png')
 
+
 for i in stocks:
-    prophet(i[1],i[0])
+    prophet(i[1], i[0])

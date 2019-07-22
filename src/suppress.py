@@ -1,6 +1,8 @@
 import os
+# from https://stackoverflow.com/questions/11130156/suppress-stdout-stderr-prin
+# t-from-python-functions
 
-#from https://stackoverflow.com/questions/11130156/suppress-stdout-stderr-print-from-python-functions
+
 class suppress_stdout_stderr(object):
     '''
     A context manager for doing a "deep suppression" of stdout and stderr in
