@@ -1,5 +1,4 @@
 from tiingo import TiingoClient
-import os
 import datetime
 
 
@@ -18,7 +17,8 @@ def get_data():
     end = str(now.year) + '-' + str(now.month) + '-' + str(now.day-1)
     start = str(now.year - 10) + '-' + str(now.month) + '-' + str(now.day-1)
 
-    config = {'api_key': os.environ.get('tiingo'), 'session': True}
+    config = {'api_key': 'key goes here',
+          'session': True}
     client = TiingoClient(config)
 
     google = client.get_dataframe("GOOGL",
@@ -52,3 +52,5 @@ def get_data():
     amazon.to_csv('../data/amazon.csv')
 
     return google, microsoft, apple, jnj, amazon
+
+get_data()

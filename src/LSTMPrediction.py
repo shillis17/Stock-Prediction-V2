@@ -15,7 +15,7 @@ plt.style.use('fivethirtyeight')
 def root_mean_squared_error(y_true, y_pred):
         return K.sqrt(K.mean(K.square(y_pred - y_true))) 
 
-class LSTMClass():
+class LSTMPrediction():
     """
     Fit and save graph for prophet model based on stock data.
 
@@ -31,32 +31,29 @@ class LSTMClass():
         self.data = data
         self.name = name
         self.days = days
-        self._split_format_data()
+        self._format_data()
         self._fit_and_predict()
         self._plot()
         
-    def _split_format_data(self):
+    def _format_data(self):
         """
         Takes self.data and scales and splits into training and testing data 
         for model as well as formatting into the propper shape to be input into
         an lstm model.
         """
-        self.train = self.data[:len(self.data)-self.days]
-        self.test = self.data[-self.days-1:]
-        
-        train = self.train.close.values.reshape(-1,1)
+        data = self.data.copy()
 
         self.scaler = MinMaxScaler(feature_range=(0, 1))
-        scaled_data = self.scaler.fit_transform(train)
-        X_train = [] 
-        y_train = []
-        for i in range((self.days*5),len(train)-self.days):
-            X_train.append(scaled_data[i-(self.days*5):i,0])
-            y_train.append(scaled_data[i,0])
-        X_train, y_train = np.array(X_train), np.array(y_train)
-        X_train = np.reshape(X_train, (X_train.shape[0],X_train.shape[1],1))
-        self.X_train = X_train
-        self.y_train = y_train
+        scaled_data = self.scaler.fit_transform(data)
+        X = [] 
+        y = []
+        for i in range((self.days*5),len(data)-self.days):
+            X.append(scaled_data[i-(self.days*5):i,0])
+            y.append(scaled_data[i,0])
+        X, y = np.array(X), np.array(y)
+        X = np.reshape(X, (X.shape[0],X.shape[1],1))
+        self.X = X
+        self.y = y
 
     def _fit_and_predict(self):
         """
@@ -65,12 +62,12 @@ class LSTMClass():
         """
         model = Sequential()
         model.add(LSTM(units=50, return_sequences=True,
-               input_shape=(self.X_train.shape[1],1)))
+               input_shape=(self.X.shape[1],1)))
         model.add(LSTM(units=50))
         model.add(Dense(1))
 
         model.compile(loss=root_mean_squared_error, optimizer='adam')
-        model.fit(self.X_train, self.y_train, epochs=5, batch_size=32)
+        model.fit(self.X, self.y, epochs=5, batch_size=32)
 
         predictions = self.data.close[-(self.days*5):]
         for i in range (self.days):
@@ -88,19 +85,14 @@ class LSTMClass():
         Plots the results of the prediction on the actuals provided by
         get_data().
         """
-        hist = self.train.close[-self.days:]
-        pred = self.predictions[-self.days-1:]
-        true = self.test
-        actual = true.close
+        prediction = self.predictions[-self.days:].values
+        index = np.arange(1,self.days+1)
         fig,ax = plt.subplots(figsize=(12, 8))
+        plt.plot(index,prediction,'k')
         plt.autoscale()
         plt.tight_layout(pad=3)
-        ax.plot(hist)
-        ax.plot(actual.index,pred)
-        ax.plot(actual)
-        ax.legend(['History','Predictions','actual'])
-        plt.xlabel('Date')
+        plt.xlabel('Days Out (From Today)')
         plt.ylabel('Value (US$)')
         plt.title(self.name + ' LSTM Prediction')
         plt.xticks(rotation=90)
-        plt.savefig('../img/LSTM/'+self.name+'_'+str(self.days)+'_Days_LSTM.png')
+        plt.savefig('../img/Predictions/'+self.name+'_'+str(self.days)+'_Days_LSTM.png')
