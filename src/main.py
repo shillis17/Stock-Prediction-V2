@@ -17,17 +17,21 @@ def make_graphs(stocks,days):
     """
     Make graphs for web app
     
-    Calls scripts to train and graph the models and save the graphs locally
+    Calls scripts to train and graph the models and save the graphs locally.
     
     Attributes:
         stocks: list of lists containing stock dataframes and names
-        days: list of ints of prediction windows
+        days: list of ints of prediction windows.
+        
+    Returns:
+        None
     """
     for i in stocks:
         for n in days:
             ProhetPrediction(i[1], i[0], n)
             LSTMPrediction(i[1], i[0], n)
     return None
+
 
 make_graphs(stocks,days)
 
