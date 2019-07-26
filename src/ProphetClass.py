@@ -65,13 +65,14 @@ class ProhetClass():
         fig, ax = plt.subplots(figsize=(12, 8))
         plt.autoscale()
         plt.tight_layout(pad=3)
-        plt.plot(hist.index[-self.days:],hist[-self.days:])
-        plt.plot(self.test.index,self.test.y)
-        plt.plot(self.forecast.index[-self.days:],self.forecast.yhat[-self.days:])
-        plt.legend(['History', 'Actual', 'Predicted'])
+        plt.plot(hist.index[-self.days:], hist[-self.days:])
+        plt.plot(self.forecast.index[-self.days:],
+                 self.forecast.yhat[-self.days:])
+        plt.plot(self.test.index, self.test.y)
+        ax.legend(['History', 'Predictions', 'actual'])
         plt.xlabel('Date')
         plt.ylabel('Value (US$)')
         plt.title(self.name + ' Prophet Prediction')
         plt.xticks(rotation=90)
-        plt.savefig('../img/Prophet/'+self.name+'_'+str(self.days)+'_Days_Prophet.png')
-
+        plt.savefig('../img/Prophet/' + self.name+'_' +
+                    str(self.days) + '_Days_Prophet.png')

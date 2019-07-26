@@ -38,9 +38,9 @@ class ProhetPrediction():
         data = pd.DataFrame(index=self.data.index.tz_localize(tz=None))
         data['y'] = self.data.close.values
         data['ds'] = self.data.index.tz_localize(tz=None)
-        
+
         self.labels = data
-        
+
     def _fit_and_predict(self):
         """
         creates the prophet model and casts predictions based on the self.train
@@ -60,13 +60,13 @@ class ProhetPrediction():
 
     def _plot(self):
         prediction = self.forecast[-self.days:]
-        index = np.arange(1,self.days+1)
+        index = np.arange(1, self.days+1)
         fig, ax = plt.subplots(figsize=(12, 8))
-        plt.plot(index,prediction.yhat.values,'k')
+        plt.plot(index, prediction.yhat.values, 'k')
         plt.autoscale()
         plt.tight_layout(pad=3)
         plt.xlabel('Days Out (From Today)')
         plt.ylabel('Value (US$)')
         plt.title(self.name + ' Prophet Prediction')
-        plt.savefig('../img/Predictions/'+self.name+'_'+str(self.days)+'_Days_Prophet.png')
-
+        plt.savefig('../img/Predictions/' + self.name+'_' +
+                    str(self.days) + '_Days_Prophet.png')

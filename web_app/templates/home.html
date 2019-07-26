@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 180px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #FEFEFE;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #010101;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #908F8F;
+}
+
+.main {
+  margin-left: 180px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+<head>
+<title>Stock Prediction</title>
+</head>
+<body bgcolor="black">
+<div class="sidenav">
+  <a href="https://github.com/shillis17/Stock-Prediction-V2" target="_blank">About</a><br>
+  <a href="https://www.linkedin.com/in/sethhillis/" target="_blank">Contact Me</a><br>
+</div>
+<div class="main">
+<center><h1><font color="white"> Stock Market Prediction </fonts></h1></center>
+<center><h3><font color="white"> Choose The Stock you Would Like to Predict: </font></h3></center>
+<center><form action = /graph method="post">
+  <select name="Stocks">
+    <option value="apple">Apple</option>
+    <option value="amazon">Amazon</option>
+    <option value="google">Google</option>
+    <option value="jnj">Johnson & Johnson</option>
+    <option value="microsoft">Microsoft</option>
+  </select></center>
+<center><h3><font color="white"> Select how Many Days to Predict: </font></h3></center>
+<center>
+  <select name="Days">
+    <option value=7>7</option>
+    <option value=14>14</option>
+    <option value=30>30</option>	
+  </select></center><br><br>
+<center><input type= "submit"></center>
+</form>
+</div>
+
+</body>
+

@@ -17,8 +17,8 @@ def get_data():
     end = str(now.year) + '-' + str(now.month) + '-' + str(now.day-1)
     start = str(now.year - 10) + '-' + str(now.month) + '-' + str(now.day-1)
 
-    config = {'api_key': 'key goes here',
-          'session': True}
+    config = {'api_key': '9ce6be2cc6e402a69ff4cb803168c024c4518216',
+              'session': True}
     client = TiingoClient(config)
 
     google = client.get_dataframe("GOOGL",
@@ -52,5 +52,6 @@ def get_data():
     amazon.to_csv('../data/amazon.csv')
 
     return google, microsoft, apple, jnj, amazon
+
 
 get_data()

@@ -1,28 +1,34 @@
 from ProphetPrediction import ProhetPrediction
 from LSTMPrediction import LSTMPrediction
 from gather_data import get_data
-import boto3
+from upload import upload
+from apscheduler.schedulers.background import BackgroundScheduler
 
-s3 = boto3.client('s3')
+# Turn on scheduler to live steam data in
+scheduler = BackgroundScheduler()
+scheduler.daemonic = False
+scheduler.start()
 
 google, microsoft, apple, jnj, amazon = get_data()
 
 stocks = [['GOOGL', google], ['MSFT', microsoft], ['AAPL', apple],
           ['JNJ', jnj], ['AMZN', amazon]]
 
-days = [7,14,30]
+days = [7, 14, 30]
+
+count = 0
 
 
-def make_graphs(stocks,days):
+def make_graphs(stocks, days):
     """
     Make graphs for web app
-    
+
     Calls scripts to train and graph the models and save the graphs locally.
-    
+
     Attributes:
         stocks: list of lists containing stock dataframes and names
         days: list of ints of prediction windows.
-        
+
     Returns:
         None
     """
@@ -33,98 +39,27 @@ def make_graphs(stocks,days):
     return None
 
 
-make_graphs(stocks,days)
+def schedule():
+    """
+    Holds function that will be called on by APScheduler and repeated
+    every 24 hours
 
-# Upload LSTM predictions
-s3.upload_file('../img/Predictions/AAPL_7_Days_LSTM.png',
-               'web-app-storage',
-               'AAPL_7_Days_LSTM.png')
-s3.upload_file('../img/Predictions/AAPL_14_Days_LSTM.png',
-               'web-app-storage',
-               'AAPL_14_Days_LSTM.png')
-s3.upload_file('../img/Predictions/AAPL_30_Days_LSTM.png',
-               'web-app-storage',
-               'AAPL_30_Days_LSTM.png')
-s3.upload_file('../img/Predictions/AMZN_7_Days_LSTM.png',
-               'web-app-storage',
-               'AMZN_7_Days_LSTM.png')
-s3.upload_file('../img/Predictions/AMZN_14_Days_LSTM.png',
-               'web-app-storage',
-               'AMZN_14_Days_LSTM.png')
-s3.upload_file('../img/Predictions/AMZN_30_Days_LSTM.png',
-               'web-app-storage',
-               'AMZN_30_Days_LSTM.png')
-s3.upload_file('../img/Predictions/GOOGL_7_Days_LSTM.png',
-               'web-app-storage',
-               'GOOGL_7_Days_LSTM.png')
-s3.upload_file('../img/Predictions/GOOGL_14_Days_LSTM.png',
-               'web-app-storage',
-               'GOOGL_14_Days_LSTM.png')
-s3.upload_file('../img/Predictions/GOOGL_30_Days_LSTM.png',
-               'web-app-storage',
-               'GOOGL_30_Days_LSTM.png')
-s3.upload_file('../img/Predictions/JNJ_7_Days_LSTM.png',
-               'web-app-storage',
-               'JNJ_7_Days_LSTM.png')
-s3.upload_file('../img/Predictions/JNJ_14_Days_LSTM.png',
-               'web-app-storage',
-               'JNJ_14_Days_LSTM.png')
-s3.upload_file('../img/Predictions/JNJ_30_Days_LSTM.png',
-               'web-app-storage',
-               'JNJ_30_Days_LSTM.png')
-s3.upload_file('../img/Predictions/MSFT_7_Days_LSTM.png',
-               'web-app-storage',
-               'MSFT_7_Days_LSTM.png')
-s3.upload_file('../img/Predictions/MSFT_14_Days_LSTM.png',
-               'web-app-storage',
-               'MSFT_14_Days_LSTM.png')
-s3.upload_file('../img/Predictions/MSFT_30_Days_LSTM.png',
-               'web-app-storage',
-               'MSFT_30_Days_LSTM.png')
+    Attributes:
+        stocks: list of lists containing stock dataframes and names
+        days: list of ints of prediction windows.
 
-# Upload Prophet predictions
-s3.upload_file('../img/Predictions/AAPL_7_Days_Prophet.png',
-               'web-app-storage',
-               'AAPL_7_Days_Prophet.png')
-s3.upload_file('../img/Predictions/AAPL_14_Days_Prophet.png',
-               'web-app-storage',
-               'AAPL_14_Days_Prophet.png')
-s3.upload_file('../img/Predictions/AAPL_30_Days_Prophet.png',
-               'web-app-storage',
-               'AAPL_30_Days_Prophet.png')
-s3.upload_file('../img/Predictions/AMZN_7_Days_Prophet.png',
-               'web-app-storage',
-               'AMZN_7_Days_Prophet.png')
-s3.upload_file('../img/Predictions/AMZN_14_Days_Prophet.png',
-               'web-app-storage',
-               'AMZN_14_Days_Prophet.png')
-s3.upload_file('../img/Predictions/AMZN_30_Days_Prophet.png',
-               'web-app-storage',
-               'AMZN_30_Days_Prophet.png')
-s3.upload_file('../img/Predictions/GOOGL_7_Days_Prophet.png',
-               'web-app-storage',
-               'GOOGL_7_Days_Prophet.png')
-s3.upload_file('../img/Predictions/GOOGL_14_Days_Prophet.png',
-               'web-app-storage',
-               'GOOGL_14_Days_Prophet.png')
-s3.upload_file('../img/Predictions/GOOGL_30_Days_Prophet.png',
-               'web-app-storage',
-               'GOOGL_30_Days_Prophet.png')
-s3.upload_file('../img/Predictions/JNJ_7_Days_Prophet.png',
-               'web-app-storage',
-               'JNJ_7_Days_Prophet.png')
-s3.upload_file('../img/Predictions/JNJ_14_Days_Prophet.png',
-               'web-app-storage',
-               'JNJ_14_Days_Prophet.png')
-s3.upload_file('../img/Predictions/JNJ_30_Days_Prophet.png',
-               'web-app-storage',
-               'JNJ_30_Days_Prophet.png')
-s3.upload_file('../img/Predictions/MSFT_7_Days_Prophet.png',
-               'web-app-storage',
-               'MSFT_7_Days_Prophet.png')
-s3.upload_file('../img/Predictions/MSFT_14_Days_Prophet.png',
-               'web-app-storage',
-               'MSFT_14_Days_Prophet.png')
-s3.upload_file('../img/Predictions/MSFT_30_Days_Prophet.png',
-               'web-app-storage',
-               'MSFT_30_Days_Prophet.png')
+    Returns:
+        None
+    """
+    global stocks
+    global days
+    make_graphs(stocks, days)
+    upload()
+    global count
+    count += 1
+
+
+# Start scheduler and keep script runnung until not needed
+scheduler.add_job(schedule, trigger='cron', hour='23', minute='59')
+input("Press enter to exit.")
+scheduler.shutdown()

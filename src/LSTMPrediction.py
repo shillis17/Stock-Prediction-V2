@@ -12,8 +12,10 @@ converter.register()
 rcParams.update({'figure.autolayout': True})
 plt.style.use('fivethirtyeight')
 
+
 def root_mean_squared_error(y_true, y_pred):
-        return K.sqrt(K.mean(K.square(y_pred - y_true))) 
+    return K.sqrt(K.mean(K.square(y_pred - y_true)))
+
 
 class LSTMPrediction():
     """
@@ -34,10 +36,10 @@ class LSTMPrediction():
         self._format_data()
         self._fit_and_predict()
         self._plot()
-        
+
     def _format_data(self):
         """
-        Takes self.data and scales and splits into training and testing data 
+        Takes self.data and scales and splits into training and testing data
         for model as well as formatting into the propper shape to be input into
         an lstm model.
         """
@@ -45,13 +47,13 @@ class LSTMPrediction():
 
         self.scaler = MinMaxScaler(feature_range=(0, 1))
         scaled_data = self.scaler.fit_transform(data)
-        X = [] 
+        X = []
         y = []
-        for i in range((self.days*5),len(data)-self.days):
-            X.append(scaled_data[i-(self.days*5):i,0])
-            y.append(scaled_data[i,0])
+        for i in range((self.days*5), len(data)-self.days):
+            X.append(scaled_data[i-(self.days*5):i, 0])
+            y.append(scaled_data[i, 0])
         X, y = np.array(X), np.array(y)
-        X = np.reshape(X, (X.shape[0],X.shape[1],1))
+        X = np.reshape(X, (X.shape[0], X.shape[1], 1))
         self.X = X
         self.y = y
 
@@ -62,7 +64,7 @@ class LSTMPrediction():
         """
         model = Sequential()
         model.add(LSTM(units=50, return_sequences=True,
-               input_shape=(self.X.shape[1],1)))
+                       input_shape=(self.X.shape[1], 1)))
         model.add(LSTM(units=50))
         model.add(Dense(1))
 
@@ -70,29 +72,30 @@ class LSTMPrediction():
         model.fit(self.X, self.y, epochs=5, batch_size=32)
 
         predictions = self.data.close[-(self.days*5):]
-        for i in range (self.days):
-            x = np.array(predictions[-(self.days*5):]).reshape(-1,1)
+        for i in range(self.days):
+            x = np.array(predictions[-(self.days*5):]).reshape(-1, 1)
             scaled_x = self.scaler.fit_transform(x)
-            scaled_x = scaled_x.reshape(1,-1,1)
+            scaled_x = scaled_x.reshape(1, -1, 1)
             pred = model.predict(scaled_x)
             pred = self.scaler.inverse_transform(pred)
             predictions = predictions.append(pd.Series(pred[0][0]),
                                              ignore_index=True)
         self.predictions = predictions
-        
+
     def _plot(self):
         """
         Plots the results of the prediction on the actuals provided by
         get_data().
         """
         prediction = self.predictions[-self.days:].values
-        index = np.arange(1,self.days+1)
-        fig,ax = plt.subplots(figsize=(12, 8))
-        plt.plot(index,prediction,'k')
+        index = np.arange(1, self.days+1)
+        fig, ax = plt.subplots(figsize=(12, 8))
+        plt.plot(index, prediction, 'k')
         plt.autoscale()
         plt.tight_layout(pad=3)
         plt.xlabel('Days Out (From Today)')
         plt.ylabel('Value (US$)')
         plt.title(self.name + ' LSTM Prediction')
         plt.xticks(rotation=90)
-        plt.savefig('../img/Predictions/'+self.name+'_'+str(self.days)+'_Days_LSTM.png')
+        plt.savefig('../img/Predictions/' +
+                    self.name + '_' + str(self.days) + '_Days_LSTM.png')
