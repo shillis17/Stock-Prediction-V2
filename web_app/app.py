@@ -41,10 +41,10 @@ def get_data():
             pred = "/static/images/APPL_7.png"
         elif days == 14:
             hist = "/static/images/AAPL_historical.png"
-            pred = "/static/images/APPL_7.png"
+            pred = "/static/images/APPL_14.png"
         else:
             hist = "/static/images/AAPL_historical.png"
-            pred = "/static/images/APPL_7.png"
+            pred = "/static/images/APPL_30.png"
     elif stock == 'Amazon':
         if days == 7:
             hist = "/static/images/AMZN_historical.png"
