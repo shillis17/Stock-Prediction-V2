@@ -11,94 +11,31 @@ def upload():
     Uses boto3 to upload images from model predictions to S3 for web app
     use
     """
-    s3.upload_file('../img/Predictions/AAPL_7_Days_LSTM.png',
+    s3.upload_file('../img/S3/AAPL_historical.png',
                    'web-app-storage',
-                   'AAPL_7_Days_LSTM.png')
-    s3.upload_file('../img/Predictions/AAPL_14_Days_LSTM.png',
+                   'AAPL_historical.png')
+    s3.upload_file('../img/S3/AMZN_historical.png',
                    'web-app-storage',
-                   'AAPL_14_Days_LSTM.png')
-    s3.upload_file('../img/Predictions/AAPL_30_Days_LSTM.png',
+                   'AMZN_historical.png')
+    s3.upload_file('../img/S3/GOOGL_historical.png',
                    'web-app-storage',
-                   'AAPL_30_Days_LSTM.png')
-    s3.upload_file('../img/Predictions/AMZN_7_Days_LSTM.png',
+                   'GOOGL_historical.png')
+    s3.upload_file('../img/S3/JNJ_historical.png',
                    'web-app-storage',
-                   'AMZN_7_Days_LSTM.png')
-    s3.upload_file('../img/Predictions/AMZN_14_Days_LSTM.png',
+                   'JNJ_historical.png')
+    s3.upload_file('../img/S3/MSFT_historical.png',
                    'web-app-storage',
-                   'AMZN_14_Days_LSTM.png')
-    s3.upload_file('../img/Predictions/AMZN_30_Days_LSTM.png',
-                   'web-app-storage',
-                   'AMZN_30_Days_LSTM.png')
-    s3.upload_file('../img/Predictions/GOOGL_7_Days_LSTM.png',
-                   'web-app-storage',
-                   'GOOGL_7_Days_LSTM.png')
-    s3.upload_file('../img/Predictions/GOOGL_14_Days_LSTM.png',
-                   'web-app-storage',
-                   'GOOGL_14_Days_LSTM.png')
-    s3.upload_file('../img/Predictions/GOOGL_30_Days_LSTM.png',
-                   'web-app-storage',
-                   'GOOGL_30_Days_LSTM.png')
-    s3.upload_file('../img/Predictions/JNJ_7_Days_LSTM.png',
-                   'web-app-storage',
-                   'JNJ_7_Days_LSTM.png')
-    s3.upload_file('../img/Predictions/JNJ_14_Days_LSTM.png',
-                   'web-app-storage',
-                   'JNJ_14_Days_LSTM.png')
-    s3.upload_file('../img/Predictions/JNJ_30_Days_LSTM.png',
-                   'web-app-storage',
-                   'JNJ_30_Days_LSTM.png')
-    s3.upload_file('../img/Predictions/MSFT_7_Days_LSTM.png',
-                   'web-app-storage',
-                   'MSFT_7_Days_LSTM.png')
-    s3.upload_file('../img/Predictions/MSFT_14_Days_LSTM.png',
-                   'web-app-storage',
-                   'MSFT_14_Days_LSTM.png')
-    s3.upload_file('../img/Predictions/MSFT_30_Days_LSTM.png',
-                   'web-app-storage',
-                   'MSFT_30_Days_LSTM.png')
-
-    s3.upload_file('../img/Predictions/AAPL_7_Days_Prophet.png',
-                   'web-app-storage',
-                   'AAPL_7_Days_Prophet.png')
-    s3.upload_file('../img/Predictions/AAPL_14_Days_Prophet.png',
-                   'web-app-storage',
-                   'AAPL_14_Days_Prophet.png')
-    s3.upload_file('../img/Predictions/AAPL_30_Days_Prophet.png',
-                   'web-app-storage',
-                   'AAPL_30_Days_Prophet.png')
-    s3.upload_file('../img/Predictions/AMZN_7_Days_Prophet.png',
-                   'web-app-storage',
-                   'AMZN_7_Days_Prophet.png')
-    s3.upload_file('../img/Predictions/AMZN_14_Days_Prophet.png',
-                   'web-app-storage',
-                   'AMZN_14_Days_Prophet.png')
-    s3.upload_file('../img/Predictions/AMZN_30_Days_Prophet.png',
-                   'web-app-storage',
-                   'AMZN_30_Days_Prophet.png')
-    s3.upload_file('../img/Predictions/GOOGL_7_Days_Prophet.png',
-                   'web-app-storage',
-                   'GOOGL_7_Days_Prophet.png')
-    s3.upload_file('../img/Predictions/GOOGL_14_Days_Prophet.png',
-                   'web-app-storage',
-                   'GOOGL_14_Days_Prophet.png')
-    s3.upload_file('../img/Predictions/GOOGL_30_Days_Prophet.png',
-                   'web-app-storage',
-                   'GOOGL_30_Days_Prophet.png')
-    s3.upload_file('../img/Predictions/JNJ_7_Days_Prophet.png',
-                   'web-app-storage',
-                   'JNJ_7_Days_Prophet.png')
-    s3.upload_file('../img/Predictions/JNJ_14_Days_Prophet.png',
-                   'web-app-storage',
-                   'JNJ_14_Days_Prophet.png')
-    s3.upload_file('../img/Predictions/JNJ_30_Days_Prophet.png',
-                   'web-app-storage',
-                   'JNJ_30_Days_Prophet.png')
-    s3.upload_file('../img/Predictions/MSFT_7_Days_Prophet.png',
-                   'web-app-storage',
-                   'MSFT_7_Days_Prophet.png')
-    s3.upload_file('../img/Predictions/MSFT_14_Days_Prophet.png',
-                   'web-app-storage',
-                   'MSFT_14_Days_Prophet.png')
-    s3.upload_file('../img/Predictions/MSFT_30_Days_Prophet.png',
-                   'web-app-storage',
-                   'MSFT_30_Days_Prophet.png')
+                   'MSFT_historical.png')
+    
+    helper = [
+            ['APPL', 7], ['APPL', 14], ['APPL', 30],
+            ['AMZN', 7], ['AMZN', 14], ['AMZN', 30],
+            ['GOOG', 7], ['GOOG', 14], ['GOOG', 30],
+            ['JNJ', 7], ['JNJ', 14], ['JNJ', 30],
+            ['MSFT', 7], ['MSFT', 14], ['MSFT', 30]
+            ]
+    for i in helper:
+        s3.upload_file('../img/S3/' + i[0] + '_' + str(i[1]) + '.png',
+                       'web-app-storage',
+                       i[0] + '_' + str(i[1]) + '.png')
+    

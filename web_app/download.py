@@ -11,94 +11,30 @@ def download():
     Uses boto3 to upload images from model predictions to S3 for web app
     use
     """
+    helper = [
+            ['APPL', 7], ['APPL', 14], ['APPL', 30],
+            ['AMZN', 7], ['AMZN', 14], ['AMZN', 30],
+            ['GOOG', 7], ['GOOG', 14], ['GOOG', 30],
+            ['JNJ', 7], ['JNJ', 14], ['JNJ', 30],
+            ['MSFT', 7], ['MSFT', 14], ['MSFT', 30]]
+            
+    for i in helper:
+        s3.download_file('web-app-storage',
+                         i[0] + '_' + str(i[1]) + '.png',
+                         'static/images/' + i[0] + '_' + str(i[1]) + '.png')
     s3.download_file('web-app-storage',
-                     'AAPL_7_Days_LSTM.png',
-                     'static/images/LSTM/AAPL_7_Days_LSTM.png')
+                     'AAPL_historical.png',
+                     'static/images/AAPL_historical.png')
     s3.download_file('web-app-storage',
-                     'AAPL_14_Days_LSTM.png',
-                     'static/images/LSTM/AAPL_14_Days_LSTM.png')
+                     'AMZN_historical.png',
+                     'static/images/AMZN_historical.png')
     s3.download_file('web-app-storage',
-                     'AAPL_30_Days_LSTM.png',
-                     'static/images/LSTM/AAPL_30_Days_LSTM.png')
+                     'GOOGL_historical.png',
+                     'static/images/GOOGL_historical.png')
     s3.download_file('web-app-storage',
-                     'AMZN_7_Days_LSTM.png',
-                     'static/images/LSTM/AMZN_7_Days_LSTM.png')
+                     'JNJ_historical.png',
+                     'static/images/JNJ_historical.png')
     s3.download_file('web-app-storage',
-                     'AMZN_14_Days_LSTM.png',
-                     'static/images/LSTM/AMZN_14_Days_LSTM.png')
-    s3.download_file('web-app-storage',
-                     'AMZN_30_Days_LSTM.png',
-                     'static/images/LSTM/AMZN_30_Days_LSTM.png')
-    s3.download_file('web-app-storage',
-                     'GOOGL_7_Days_LSTM.png',
-                     'static/images/LSTM/GOOGL_7_Days_LSTM.png')
-    s3.download_file('web-app-storage',
-                     'GOOGL_14_Days_LSTM.png',
-                     'static/images/LSTM/GOOGL_14_Days_LSTM.png')
-    s3.download_file('web-app-storage',
-                     'GOOGL_30_Days_LSTM.png',
-                     'static/images/LSTM/GOOGL_30_Days_LSTM.png')
-    s3.download_file('web-app-storage',
-                     'JNJ_7_Days_LSTM.png',
-                     'static/images/LSTM/JNJ_7_Days_LSTM.png')
-    s3.download_file('web-app-storage',
-                     'JNJ_14_Days_LSTM.png',
-                     'static/images/LSTM/JNJ_14_Days_LSTM.png')
-    s3.download_file('web-app-storage',
-                     'JNJ_30_Days_LSTM.png',
-                     'static/images/LSTM/JNJ_3pp 0_Days_LSTM.png')
-    s3.download_file('web-app-storage',
-                     'MSFT_7_Days_LSTM.png',
-                     'static/images/LSTM/MSFT_7_Days_LSTM.png')
-    s3.download_file('web-app-storage',
-                     'MSFT_14_Days_LSTM.png',
-                     'static/images/LSTM/MSFT_14_Days_LSTM.png')
-    s3.download_file('web-app-storage',
-                     'MSFT_30_Days_LSTM.png',
-                     'static/images/LSTM/MSFT_30_Days_LSTM.png')
+                     'MSFT_historical.png',
+                     'static/images/MSFT_historical.png')
 
-    s3.download_file('web-app-storage',
-                     'AAPL_7_Days_Prophet.png',
-                     'static/images/Prophet/AAPL_7_Days_Prophet.png')
-    s3.download_file('web-app-storage',
-                     'AAPL_14_Days_Prophet.png',
-                     'static/images/Prophet/AAPL_14_Days_Prophet.png')
-    s3.download_file('web-app-storage',
-                     'AAPL_30_Days_Prophet.png',
-                     'static/images/Prophet/AAPL_30_Days_Prophet.png')
-    s3.download_file('web-app-storage',
-                     'AMZN_7_Days_Prophet.png',
-                     'static/images/Prophet/AMZN_7_Days_Prophet.png')
-    s3.download_file('web-app-storage',
-                     'AMZN_14_Days_Prophet.png',
-                     'static/images/Prophet/AMZN_14_Days_Prophet.png')
-    s3.download_file('web-app-storage',
-                     'AMZN_30_Days_Prophet.png',
-                     'static/images/Prophet/AMZN_30_Days_Prophet.png')
-    s3.download_file('web-app-storage',
-                     'GOOGL_7_Days_Prophet.png',
-                     'static/images/Prophet/GOOGL_7_Days_Prophet.png')
-    s3.download_file('web-app-storage',
-                     'GOOGL_14_Days_Prophet.png',
-                     'static/images/Prophet/GOOGL_14_Days_Prophet.png')
-    s3.download_file('web-app-storage',
-                     'GOOGL_30_Days_Prophet.png',
-                     'static/images/Prophet/GOOGL_30_Days_Prophet.png')
-    s3.download_file('web-app-storage',
-                     'JNJ_7_Days_Prophet.png',
-                     'static/images/Prophet/JNJ_7_Days_Prophet.png')
-    s3.download_file('web-app-storage',
-                     'JNJ_14_Days_Prophet.png',
-                     'static/images/Prophet/JNJ_14_Days_Prophet.png')
-    s3.download_file('web-app-storage',
-                     'JNJ_30_Days_Prophet.png',
-                     'static/images/Prophet/JNJ_30_Days_Prophet.png')
-    s3.download_file('web-app-storage',
-                     'MSFT_7_Days_Prophet.png',
-                     'static/images/Prophet/MSFT_7_Days_Prophet.png')
-    s3.download_file('web-app-storage',
-                     'MSFT_14_Days_Prophet.png',
-                     'static/images/Prophet/MSFT_14_Days_Prophet.png')
-    s3.download_file('web-app-storage',
-                     'MSFT_30_Days_Prophet.png',
-                     'static/images/Prophet/MSFT_30_Days_Prophet.png')

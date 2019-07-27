@@ -1,6 +1,4 @@
-from ProphetPrediction import ProhetPrediction
-from LSTMPrediction import LSTMPrediction
-from gather_data import get_data
+from build_plots import build_plots
 from upload import upload
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -9,17 +7,8 @@ scheduler = BackgroundScheduler()
 scheduler.daemonic = False
 scheduler.start()
 
-google, microsoft, apple, jnj, amazon = get_data()
 
-stocks = [['GOOGL', google], ['MSFT', microsoft], ['AAPL', apple],
-          ['JNJ', jnj], ['AMZN', amazon]]
-
-days = [7, 14, 30]
-
-count = 0
-
-
-def make_graphs(stocks, days):
+def make_graphs():
     """
     Make graphs for web app
 
@@ -32,10 +21,7 @@ def make_graphs(stocks, days):
     Returns:
         None
     """
-    for i in stocks:
-        for n in days:
-            ProhetPrediction(i[1], i[0], n)
-            LSTMPrediction(i[1], i[0], n)
+    build_plots()
     return None
 
 
@@ -51,15 +37,11 @@ def schedule():
     Returns:
         None
     """
-    global stocks
-    global days
-    make_graphs(stocks, days)
+    make_graphs()
     upload()
-    global count
-    count += 1
 
-
+schedule()
 # Start scheduler and keep script runnung until not needed
-scheduler.add_job(schedule, trigger='cron', hour='23', minute='59')
+scheduler.add_job(schedule, trigger='cron', hour='23')
 input("Press enter to exit.")
 scheduler.shutdown()

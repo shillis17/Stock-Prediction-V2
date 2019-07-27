@@ -25,31 +25,31 @@ def get_data():
                                   startDate=start,
                                   endDate=end,
                                   frequency='daily')
-    google.to_csv('../data/google.csv')
+    #google.to_csv('../data/google.csv')
 
     microsoft = client.get_dataframe("MSFT",
                                      startDate=start,
                                      endDate=end,
                                      frequency='daily')
-    microsoft.to_csv('../data/microsoft.csv')
+    #microsoft.to_csv('../data/microsoft.csv')
 
     apple = client.get_dataframe("AAPL",
                                  startDate=start,
                                  endDate=end,
                                  frequency='daily')
-    apple.to_csv('../data/apple.csv')
+    #apple.to_csv('../data/apple.csv')
 
     jnj = client.get_dataframe("JNJ",
                                startDate=start,
                                endDate=end,
                                frequency='daily')
-    jnj.to_csv('../data/jnj.csv')
+    #jnj.to_csv('../data/jnj.csv')
 
     amazon = client.get_dataframe("AMZN",
                                   startDate=start,
                                   endDate=end,
                                   frequency='daily')
-    amazon.to_csv('../data/amazon.csv')
+    #amazon.to_csv('../data/amazon.csv')
 
     return google, microsoft, apple, jnj, amazon
 

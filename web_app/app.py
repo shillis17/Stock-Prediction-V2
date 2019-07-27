@@ -8,6 +8,7 @@ scheduler.start()
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
+download()
 
 def get_page():
     """
@@ -34,43 +35,58 @@ def home():
 def get_data():
     stock = request.form['Stocks']
     days = int(request.form['Days'])
-    if stock.lower() == 'apple':
+    if stock == 'Apple':
         if days == 7:
-            return render_template('apple7.html')
+            hist = "/static/images/AAPL_historical.png"
+            pred = "/static/images/APPL_7.png"
         elif days == 14:
-            return render_template('apple14.html')
+            hist = "/static/images/AAPL_historical.png"
+            pred = "/static/images/APPL_7.png"
         else:
-            return render_template('apple30.html')
-    elif stock == 'amazon':
+            hist = "/static/images/AAPL_historical.png"
+            pred = "/static/images/APPL_7.png"
+    elif stock == 'Amazon':
         if days == 7:
-            return render_template('amazon7.html')
+            hist = "/static/images/AMZN_historical.png"
+            pred = "/static/images/AMZN_7.png"
         elif days == 14:
-            return render_template('amazon7.html')
+            hist = "/static/images/AMZN_historical.png"
+            pred = "/static/images/AMZN_14.png"
         else:
-            return render_template('amazon7.html')
-    elif stock == 'google':
+            hist = "/static/images/AMZN_historical.png"
+            pred = "/static/images/AMZN_30.png"
+    elif stock == 'Google':
         if days == 7:
-            return render_template('google7.html')
+            hist = "/static/images/GOOGL_historical.png"
+            pred = "/static/images/GOOG_7.png"
         elif days == 14:
-            return render_template('google14.html')
+            hist = "/static/images/GOOGL_historical.png"
+            pred = "/static/images/GOOG_14.png"
         else:
-            return render_template('google30.html')
-    elif stock == 'jnj':
+            hist = "/static/images/GOOGL_historical.png"
+            pred = "/static/images/GOOG_30.png"
+    elif stock == 'JNJ':
         if days == 7:
-            return render_template('jnj7.html')
+            hist = "/static/images/JNJ_historical.png"
+            pred = "/static/images/JNJ_7.png"
         elif days == 14:
-            return render_template('jnj14.html')
+            hist = "/static/images/JNJ_historical.png"
+            pred = "/static/images/JNJ_14.png"
         else:
-            return render_template('jnj30.html')
+            hist = "/static/images/JNJ_historical.png"
+            pred = "/static/images/JNJ_30.png"
     else:
         if days == 7:
-            return render_template('microsoft7.html')
+            hist = "/static/images/MSFT_historical.png"
+            pred = "/static/images/MSFT_7.png"
         elif days == 14:
-            return render_template('microsoft14.html')
+            hist = "/static/images/MSFT_historical.png"
+            pred = "/static/images/MSFT_14.png"
         else:
-            return render_template('microsoft30.html')
+            hist = "/static/images/MSFT_historical.png"
+            pred = "/static/images/MSFT_15.png"
     
-    return render_template('graph.html')
+    return render_template('graph.html',stock=stock,days=days,hist=hist,pred=pred)
 
 
 @app.route('/prophet')

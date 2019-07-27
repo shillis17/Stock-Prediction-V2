@@ -29,7 +29,7 @@ class ProhetPrediction():
         self.days = days
         self._label_data()
         self._fit_and_predict()
-        self._plot()
+        #self._plot()
 
     def _label_data(self):
         """
@@ -57,7 +57,7 @@ class ProhetPrediction():
             model.fit(self.labels)
             future = model.make_future_dataframe(periods=365)
             self.forecast = model.predict(future)
-
+"""
     def _plot(self):
         prediction = self.forecast[-self.days:]
         index = np.arange(1, self.days+1)
@@ -70,3 +70,4 @@ class ProhetPrediction():
         plt.title(self.name + ' Prophet Prediction')
         plt.savefig('../img/Predictions/' + self.name+'_' +
                     str(self.days) + '_Days_Prophet.png')
+"""

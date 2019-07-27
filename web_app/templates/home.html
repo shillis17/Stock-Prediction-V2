@@ -39,6 +39,24 @@ body {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: #ffff;
+  border: black;
+  color: black;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-size: 20px;
+}
+select {
+  -webkit-appearance: none; 
+  -moz-appearance: none;
+  padding: 4px 8px;
+  font-size: 25px;
+  appearance: none;
+  background-color: #ffff;
+}
 </style>
 <head>
 <title>Stock Prediction</title>
@@ -53,11 +71,11 @@ body {
 <center><h3><font color="white"> Choose The Stock you Would Like to Predict: </font></h3></center>
 <center><form action = /graph method="post">
   <select name="Stocks">
-    <option value="apple">Apple</option>
-    <option value="amazon">Amazon</option>
-    <option value="google">Google</option>
-    <option value="jnj">Johnson & Johnson</option>
-    <option value="microsoft">Microsoft</option>
+    <option value="Apple">Apple</option>
+    <option value="Amazon">Amazon</option>
+    <option value="Google">Google</option>
+    <option value="JNJ">Johnson & Johnson</option>
+    <option value="Microsoft">Microsoft</option>
   </select></center>
 <center><h3><font color="white"> Select how Many Days to Predict: </font></h3></center>
 <center>
@@ -66,7 +84,7 @@ body {
     <option value=14>14</option>
     <option value=30>30</option>	
   </select></center><br><br>
-<center><input type= "submit"></center>
+<center><input type="submit" value="Submit"></center>
 </form>
 </div>
 
