@@ -73,7 +73,7 @@ class LSTMClass():
         model.add(Dense(1))
 
         model.compile(loss=root_mean_squared_error, optimizer='adam')
-        model.fit(self.X_train, self.y_train, epochs=1, batch_size=32)
+        model.fit(self.X_train, self.y_train, epochs=1, batch_size=252)
 
         predictions = self.feed.close[-(self.days*5):]
         for i in range(self.days):

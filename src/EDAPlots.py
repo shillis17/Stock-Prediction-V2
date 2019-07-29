@@ -108,3 +108,4 @@ def build_plots():
         plt.ylabel('Value (US$)')
         plt.savefig('../img/EDA/' + i[0] + '_EDA.png')
         plt.close()
+

@@ -69,7 +69,7 @@ class LSTMPrediction():
         model.add(Dense(1))
 
         model.compile(loss=root_mean_squared_error, optimizer='adam')
-        model.fit(self.X, self.y, epochs=1, batch_size=32)
+        model.fit(self.X, self.y, epochs=1, batch_size=252)
 
         predictions = self.data.close[-(self.days*5):]
         for i in range(self.days):
