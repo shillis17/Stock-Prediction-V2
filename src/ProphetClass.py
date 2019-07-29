@@ -28,7 +28,7 @@ class ProhetClass():
         self.days = days
         self._split_data()
         self._fit_and_predict()
-        self._plot()
+#        self._plot()
 
     def _split_data(self):
         """
@@ -38,8 +38,8 @@ class ProhetClass():
         data['y'] = self.data.close.values
         data['ds'] = self.data.index.tz_localize(tz=None)
 
-        self.train = data[:len(self.data)-self.days]
-        self.test = data[-self.days:]
+        self.train = data[:(len(self.data)-self.days)]
+        self.test = data.y[-(self.days+1):]
 
     def _fit_and_predict(self):
         """
@@ -68,7 +68,7 @@ class ProhetClass():
         plt.plot(hist.index[-self.days:], hist[-self.days:])
         plt.plot(self.forecast.index[-self.days:],
                  self.forecast.yhat[-self.days:])
-        plt.plot(self.test.index, self.test.y)
+        plt.plot(self.test.index, self.test)
         ax.legend(['History', 'Predictions', 'actual'])
         plt.xlabel('Date')
         plt.ylabel('Value (US$)')

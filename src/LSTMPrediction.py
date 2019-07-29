@@ -35,7 +35,7 @@ class LSTMPrediction():
         self.days = days
         self._format_data()
         self._fit_and_predict()
-        #self._plot()
+#        self._plot()
 
     def _format_data(self):
         """
@@ -69,7 +69,7 @@ class LSTMPrediction():
         model.add(Dense(1))
 
         model.compile(loss=root_mean_squared_error, optimizer='adam')
-        model.fit(self.X, self.y, epochs=1, batch_size=252)
+        model.fit(self.X, self.y, epochs=1, batch_size=32)
 
         predictions = self.data.close[-(self.days*5):]
         for i in range(self.days):
@@ -81,7 +81,7 @@ class LSTMPrediction():
             predictions = predictions.append(pd.Series(pred[0][0]),
                                              ignore_index=True)
         self.predictions = predictions
-'''      
+
     def _plot(self):
         """
         Plots the results of the prediction on the actuals provided by
@@ -98,4 +98,3 @@ class LSTMPrediction():
         plt.title(self.name + ' LSTM Prediction')
         plt.savefig('../img/Predictions/' +
                     self.name + '_' + str(self.days) + '_Days_LSTM.png')
-'''

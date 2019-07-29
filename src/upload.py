@@ -26,7 +26,7 @@ def upload():
     s3.upload_file('../img/S3/MSFT_historical.png',
                    'web-app-storage',
                    'MSFT_historical.png')
-    
+
     helper = [
             ['APPL', 7], ['APPL', 14], ['APPL', 30],
             ['AMZN', 7], ['AMZN', 14], ['AMZN', 30],
@@ -38,4 +38,3 @@ def upload():
         s3.upload_file('../img/S3/' + i[0] + '_' + str(i[1]) + '.png',
                        'web-app-storage',
                        i[0] + '_' + str(i[1]) + '.png')
-    

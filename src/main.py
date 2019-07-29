@@ -40,8 +40,9 @@ def schedule():
     make_graphs()
     upload()
 
+
 schedule()
 # Start scheduler and keep script runnung until not needed
-scheduler.add_job(schedule, trigger='cron', hour='23')
+scheduler.add_job(schedule, trigger='cron', hour='18')
 input("Press enter to exit.")
 scheduler.shutdown()

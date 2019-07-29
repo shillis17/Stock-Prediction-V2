@@ -17,7 +17,7 @@ def download():
             ['GOOG', 7], ['GOOG', 14], ['GOOG', 30],
             ['JNJ', 7], ['JNJ', 14], ['JNJ', 30],
             ['MSFT', 7], ['MSFT', 14], ['MSFT', 30]]
-            
+
     for i in helper:
         s3.download_file('web-app-storage',
                          i[0] + '_' + str(i[1]) + '.png',
@@ -37,4 +37,3 @@ def download():
     s3.download_file('web-app-storage',
                      'MSFT_historical.png',
                      'static/images/MSFT_historical.png')
-

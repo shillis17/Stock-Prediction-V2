@@ -10,16 +10,17 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 download()
 
+
 def get_page():
     """
     Revieves data graphs
-    
+
     Calls download to revieve the graphs form the S3bucket
     """
     download()
 
 
-scheduler.add_job(get_page, 'cron', hour='1')
+scheduler.add_job(get_page, 'cron', hour='5')
 
 
 @app.route('/')
@@ -84,9 +85,10 @@ def get_data():
             pred = "/static/images/MSFT_14.png"
         else:
             hist = "/static/images/MSFT_historical.png"
-            pred = "/static/images/MSFT_15.png"
-    
-    return render_template('graph.html',stock=stock,days=days,hist=hist,pred=pred)
+            pred = "/static/images/MSFT_30.png"
+
+    return render_template('graph.html', stock=stock, days=days,
+                           hist=hist, pred=pred)
 
 
 @app.route('/prophet')

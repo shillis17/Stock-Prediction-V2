@@ -35,7 +35,7 @@ class LSTMClass():
         self.days = days
         self._split_format_data()
         self._fit_and_predict()
-        self._plot()
+#        self._plot()
 
     def _split_format_data(self):
         """
@@ -44,8 +44,9 @@ class LSTMClass():
         an lstm model.
         """
         self.train = self.data[:len(self.data)-self.days]
+        self.feed = self.train.copy()
         self.test = self.data[-self.days-1:]
-
+        self.actuals = self.test.close
         train = self.train.close.values.reshape(-1, 1)
 
         self.scaler = MinMaxScaler(feature_range=(0, 1))
@@ -72,9 +73,9 @@ class LSTMClass():
         model.add(Dense(1))
 
         model.compile(loss=root_mean_squared_error, optimizer='adam')
-        model.fit(self.X_train, self.y_train, epochs=5, batch_size=32)
+        model.fit(self.X_train, self.y_train, epochs=1, batch_size=32)
 
-        predictions = self.data.close[-(self.days*5):]
+        predictions = self.feed.close[-(self.days*5):]
         for i in range(self.days):
             x = np.array(predictions[-(self.days*5):]).reshape(-1, 1)
             scaled_x = self.scaler.fit_transform(x)
