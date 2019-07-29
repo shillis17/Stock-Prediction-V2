@@ -61,6 +61,9 @@ class ProhetClass():
             self.forecast.set_index('ds', inplace=True)
 
     def _plot(self):
+        """
+        Plots the predictions (no longer used) with a portion of historical data.
+        """
         hist = self.data.close[:1+len(self.data)-self.days]
         fig, ax = plt.subplots(figsize=(12, 8))
         plt.autoscale()
