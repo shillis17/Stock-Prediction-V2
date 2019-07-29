@@ -18,7 +18,7 @@ class ProhetClass():
     for a given ammount of time.
 
     Attributes:
-        data    (Padnas DataFame): Dataframe of stock data from get_data()
+        data    (Pandas DataFame): Dataframe of stock data from get_data()
         name    (String): name of the stock used for save file and graph title
     """
 
